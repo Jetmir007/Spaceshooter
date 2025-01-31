@@ -8,7 +8,6 @@ namespace Monogame._2
     {
         private Texture2D texture;
         private Vector2 position;
-
         private Rectangle hitbox; 
 
         public Player(Texture2D texture, Vector2 position, int pixelSize){
@@ -25,10 +24,16 @@ namespace Monogame._2
             KeyboardState kState =  Keyboard.GetState();
 
             if(kState.IsKeyDown(Keys.Left) && position.X > 0){
-                position.X -= 1;
+                position.X -= 10;
             }
-            else if(kState.IsKeyDown(Keys.Right) && position.X < 750){
-                position.X += 1;
+            if(kState.IsKeyDown(Keys.Right) && position.X < 750){
+                position.X += 10;
+            }
+            if(kState.IsKeyDown(Keys.Up) && position.Y > 0){
+                position.Y -= 10;
+            }
+            if(kState.IsKeyDown(Keys.Down) && position.Y < 430){
+                position.Y += 10;
             }
 
             hitbox.Location = position.ToPoint();   

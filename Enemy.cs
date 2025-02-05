@@ -11,13 +11,16 @@ namespace Monogame._2
         private Microsoft.Xna.Framework.Vector2 position;
         private Microsoft.Xna.Framework.Rectangle hitbox;
         private float speed;
+        public Microsoft.Xna.Framework.Rectangle Hitbox{
+            get{return hitbox;}
+        }
 
         public Enemy(Texture2D texture){
             this.texture = texture;
-            Random rand = new Random();
+            Random rand = new Random();   
             int size = rand.Next(10, 50);
             speed = rand.NextFloat(5, 100);
-            position.X = rand.NextFloat(0, 750);
+            position.X = rand.NextFloat(0, 1870);
             position.Y = -50;
             hitbox = new ((int) position.X, (int) position.Y, size, size);
         }

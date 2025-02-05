@@ -19,6 +19,9 @@ public class Game1 : Game
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
+        _graphics.PreferredBackBufferHeight = 1080;
+        _graphics.PreferredBackBufferWidth = 1920; 
+        _graphics.IsFullScreen = true;
     }
 
     protected override void Initialize()
@@ -33,7 +36,7 @@ public class Game1 : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         spaceShip = Content.Load<Texture2D>("spaceship");
 
-        player = new Player(spaceShip, new Vector2(380, 400), 50);
+        player = new Player(spaceShip, new Vector2(540, 1000), 50);
         
 
         // TODO: use this.Content to load your game content here
@@ -51,6 +54,7 @@ public class Game1 : Game
         foreach(Enemy enemy in enemies){
             enemy.Update();
         }
+        EnemyBulletCollision();
         SpawnEnemy();
         base.Update(gameTime);
     }
@@ -72,9 +76,23 @@ public class Game1 : Game
     private void SpawnEnemy(){
         Random rand = new Random();
         int value = rand.Next(1, 101);
-        int spawnChancePercent = 5;
+        int spawnChancePercent = 3;
         if(value<=spawnChancePercent){
             enemies.Add(new Enemy(spaceShip));   
+        }
+    }
+
+    private void EnemyBulletCollision(){
+        for(int i = 0; i < enemies.Count; i++){
+            for (int j = 0; j < player.Bullets.Count; j++)
+            {
+                if(enemies[i].Hitbox.Intersects(player.Bullets[j].Hitbox)){
+                    enemies.RemoveAt(i);
+                    player.Bullets.RemoveAt(j);
+                    i--;
+                    j--;
+                }
+            }
         }
     }
 }

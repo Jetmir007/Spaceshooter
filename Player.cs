@@ -41,7 +41,9 @@ namespace Monogame._2
 
         private void Shoot(){
             if(newKState.IsKeyDown(Keys.Space) && oldKState.IsKeyUp(Keys.Space)){
-                Bullet bullet = new Bullet(texture, position);
+                Bullet bullet = new Bullet(texture, position, new Vector2(0,-1));
+                bullets.Add(bullet);
+                bullet = new Bullet(texture, position, new Vector2(0,1));
                 bullets.Add(bullet);
             }
         }

@@ -13,6 +13,9 @@ public class Game1 : Game
     private Player player;
     private Texture2D spaceShip;
     private List<Enemy> enemies = new List<Enemy>();
+    private List<Enemy2> enemies2 = new List<Enemy2>();
+
+    private int hp = 3;
 
     public Game1()
     {
@@ -54,11 +57,15 @@ public class Game1 : Game
         foreach(Enemy enemy in enemies){
             enemy.Update();
         }
+        foreach(Enemy2 enemy2 in enemies2){
+            enemy2.Update();
+        }
         EnemyBulletCollision();
         EnemyPlayerCollision();
+        EnemyEnemyCollison();
         SpawnEnemy();
         base.Update(gameTime);
-    }
+    }               
 
     protected override void Draw(GameTime gameTime)
     {
@@ -70,6 +77,9 @@ public class Game1 : Game
         foreach(Enemy enemy in enemies){
             enemy.Draw(_spriteBatch);
         }
+        foreach(Enemy2 enemy2 in enemies2){
+            enemy2.Draw(_spriteBatch);
+        }
         _spriteBatch.End();
         base.Draw(gameTime);
     }
@@ -77,9 +87,10 @@ public class Game1 : Game
     private void SpawnEnemy(){
         Random rand = new Random();
         int value = rand.Next(1, 101);
-        int spawnChancePercent = 3;
+        int spawnChancePercent = 5;
         if(value<=spawnChancePercent){
-            enemies.Add(new Enemy(spaceShip));   
+            enemies.Add(new Enemy(spaceShip));
+            enemies2.Add(new Enemy2(spaceShip));   
         }
     }
 
@@ -87,8 +98,9 @@ public class Game1 : Game
         for(int i = 0; i < enemies.Count; i++){
             for (int j = 0; j < player.Bullets.Count; j++)
             {
-                if(enemies[i].Hitbox.Intersects(player.Bullets[j].Hitbox)){
+                if(enemies[i].Hitbox.Intersects(player.Bullets[j].Hitbox) || enemies2[i].Hitbox.Intersects(player.Bullets[j].Hitbox)){
                     enemies.RemoveAt(i);
+                    enemies2.RemoveAt(i);
                     player.Bullets.RemoveAt(j);
                     i--;
                     j--;
@@ -98,10 +110,34 @@ public class Game1 : Game
     }
 
     private void EnemyPlayerCollision(){
-        int hp = 3;
         for (int i = 0; i < enemies.Count; i++)
         {
-            
+            if(hp>0){
+                if(enemies[i].Hitbox.Intersects(player.Hitbox) || enemies2[i].Hitbox.Intersects(player.Hitbox)){
+                    hp--;
+                    enemies.RemoveAt(i);
+                    enemies2.RemoveAt(i);
+                    i--;
+                }
+            }
+            else{
+                Exit();
+            }
+        }
+    }
+
+    private void EnemyEnemyCollison(){
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            for (int j = 0; j < enemies2.Count; j++)
+            {
+                if(enemies[i].Hitbox.Intersects(enemies2[j].Hitbox)){
+                    enemies.RemoveAt(i);
+                    enemies2.RemoveAt(j);
+                    i--;
+                    j--;
+                }
+            }
         }
     }
 }

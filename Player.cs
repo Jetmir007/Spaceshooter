@@ -24,6 +24,10 @@ namespace Monogame._2
             hitbox = new Rectangle((int) position.X, (int) position.Y, pixelSize, pixelSize);
         }
 
+        public Rectangle Hitbox{
+            get{return hitbox;}
+        }
+
         public void Update(){
             newKState = Keyboard.GetState();
             Move();

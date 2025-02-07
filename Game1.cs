@@ -55,6 +55,7 @@ public class Game1 : Game
             enemy.Update();
         }
         EnemyBulletCollision();
+        EnemyPlayerCollision();
         SpawnEnemy();
         base.Update(gameTime);
     }
@@ -93,6 +94,14 @@ public class Game1 : Game
                     j--;
                 }
             }
+        }
+    }
+
+    private void EnemyPlayerCollision(){
+        int hp = 3;
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            
         }
     }
 }

@@ -14,8 +14,9 @@ public class Game1 : Game
     private Texture2D spaceShip;
     private List<Enemy> enemies = new List<Enemy>();
     private List<Enemy2> enemies2 = new List<Enemy2>();
-
+    private int point = 0;
     private int hp = 3;
+    SpriteFont fontScore;
 
     public Game1()
     {
@@ -38,6 +39,7 @@ public class Game1 : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         spaceShip = Content.Load<Texture2D>("spaceship");
+        fontScore = Content.Load<SpriteFont>("fontScore");
 
         player = new Player(spaceShip, new Vector2(540, 1000), 50);
         
@@ -45,7 +47,7 @@ public class Game1 : Game
         // TODO: use this.Content to load your game content here
     }
 
-    protected override void Update(GameTime gameTime)
+     protected override void Update(GameTime gameTime)
     {
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
@@ -80,6 +82,8 @@ public class Game1 : Game
         foreach(Enemy2 enemy2 in enemies2){
             enemy2.Draw(_spriteBatch);
         }
+        _spriteBatch.DrawString(fontScore, Convert.ToString(point), new Vector2(50, 50), Color.Black);
+        _spriteBatch.DrawString(fontScore, "HP: " + Convert.ToString(hp), new Vector2(1760, 50), Color.Red);
         _spriteBatch.End();
         base.Draw(gameTime);
     }
@@ -102,8 +106,7 @@ public class Game1 : Game
                     enemies.RemoveAt(i);
                     enemies2.RemoveAt(i);
                     player.Bullets.RemoveAt(j);
-                    i--;
-                    j--;
+                    point++;
                 }
             }
         }
@@ -117,7 +120,6 @@ public class Game1 : Game
                     hp--;
                     enemies.RemoveAt(i);
                     enemies2.RemoveAt(i);
-                    i--;
                 }
             }
             else{
@@ -134,8 +136,6 @@ public class Game1 : Game
                 if(enemies[i].Hitbox.Intersects(enemies2[j].Hitbox)){
                     enemies.RemoveAt(i);
                     enemies2.RemoveAt(j);
-                    i--;
-                    j--;
                 }
             }
         }

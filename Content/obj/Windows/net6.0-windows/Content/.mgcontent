@@ -4,9 +4,11 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/Admin/Documents/GitHub/Monogame.-2/Content/fontScore.spritefont</File>
     <File>C:/Users/Admin/Documents/GitHub/Monogame.-2/Content/spaceship.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>
 </SourceFileCollection>

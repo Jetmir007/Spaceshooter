@@ -22,8 +22,8 @@ namespace Monogame._2
         }
 
         public void Update(){
-            position.Y += direction.Y * 50 * 1f/60f;
-
+            position.Y += direction.Y * 200 * 1f/60f;
+  
             hitbox.Location = position.ToPoint();
         }
 

@@ -14,6 +14,8 @@ public class Game1 : Game
     private Texture2D spaceShip;
     private List<Enemy> enemies = new List<Enemy>();
     private List<Enemy2> enemies2 = new List<Enemy2>();
+    private Boss boss;
+    private int bossHP = 10;
     private int point = 0;
     private int hp = 3;
     SpriteFont fontScore;
@@ -25,7 +27,7 @@ public class Game1 : Game
         IsMouseVisible = true;
         _graphics.PreferredBackBufferHeight = 1080;
         _graphics.PreferredBackBufferWidth = 1920; 
-        _graphics.IsFullScreen = true;
+        _graphics.ApplyChanges();
     }
 
     protected override void Initialize()
@@ -42,6 +44,7 @@ public class Game1 : Game
         fontScore = Content.Load<SpriteFont>("fontScore");
 
         player = new Player(spaceShip, new Vector2(540, 1000), 50);
+        boss = new Boss(spaceShip, new Vector2(900, -100));
         
 
         // TODO: use this.Content to load your game content here
@@ -56,6 +59,7 @@ public class Game1 : Game
 
 
         player.Update();
+        boss.Update();
         foreach(Enemy enemy in enemies){
             enemy.Update();
         }
@@ -81,6 +85,9 @@ public class Game1 : Game
         }
         foreach(Enemy2 enemy2 in enemies2){
             enemy2.Draw(_spriteBatch);
+        } 
+        if(point>100){
+            boss.Draw(_spriteBatch);
         }
         _spriteBatch.DrawString(fontScore, Convert.ToString(point), new Vector2(50, 50), Color.Black);
         _spriteBatch.DrawString(fontScore, "HP: " + Convert.ToString(hp), new Vector2(1760, 50), Color.Red);
@@ -91,22 +98,36 @@ public class Game1 : Game
     private void SpawnEnemy(){
         Random rand = new Random();
         int value = rand.Next(1, 101);
-        int spawnChancePercent = 5;
+        int spawnChancePercent = 3;
         if(value<=spawnChancePercent){
             enemies.Add(new Enemy(spaceShip));
             enemies2.Add(new Enemy2(spaceShip));   
         }
+        if(point>100){
+            enemies.RemoveRange(0, enemies.Count);
+            enemies2.RemoveRange(0, enemies2.Count);
+        }
     }
 
     private void EnemyBulletCollision(){
+        Random rng = new Random();
         for(int i = 0; i < enemies.Count; i++){
             for (int j = 0; j < player.Bullets.Count; j++)
             {
-                if(enemies[i].Hitbox.Intersects(player.Bullets[j].Hitbox) || enemies2[i].Hitbox.Intersects(player.Bullets[j].Hitbox)){
+                if(enemies[i].Hitbox.Intersects(player.Bullets[j].Hitbox)){
                     enemies.RemoveAt(i);
+                    player.Bullets.RemoveAt(j);
+                    point += rng.Next(20, 50);
+                }
+            }
+        }
+        for(int i = 0; i < enemies2.Count; i++){
+            for (int j = 0; j < player.Bullets.Count; j++)
+            {
+                if(enemies2[i].Hitbox.Intersects(player.Bullets[j].Hitbox)){
                     enemies2.RemoveAt(i);
                     player.Bullets.RemoveAt(j);
-                    point++;
+                    point += rng.Next(20, 50);
                 }
             }
         }
@@ -116,9 +137,20 @@ public class Game1 : Game
         for (int i = 0; i < enemies.Count; i++)
         {
             if(hp>0){
-                if(enemies[i].Hitbox.Intersects(player.Hitbox) || enemies2[i].Hitbox.Intersects(player.Hitbox)){
+                if(enemies[i].Hitbox.Intersects(player.Hitbox)){
                     hp--;
                     enemies.RemoveAt(i);
+                }
+            }
+            else{
+                Exit();
+            }
+        }
+        for (int i = 0; i < enemies2.Count; i++)
+        {
+            if(hp>0){
+                if(enemies2[i].Hitbox.Intersects(player.Hitbox)){
+                    hp--;
                     enemies2.RemoveAt(i);
                 }
             }
@@ -138,6 +170,19 @@ public class Game1 : Game
                     enemies2.RemoveAt(j);
                 }
             }
+        }
+    }
+    private void BossCollision(){
+        if(bossHP>0){
+            for (int i = 0; i < player.Bullets.Count; i++)
+            {
+                if(player.Bullets[i].Hitbox.Intersects(boss.Hitbox)){
+                    bossHP--;
+                }
+            }
+        }
+        else{
+            
         }
     }
 }

@@ -36,8 +36,8 @@ namespace Monogame._2
 
             foreach(Bullet b in bullets){
                 b.Update(); 
+            }
         }
-    }
 
         private void Shoot(){
             if(newKState.IsKeyDown(Keys.Space) && oldKState.IsKeyUp(Keys.Space)){

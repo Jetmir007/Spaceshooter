@@ -59,7 +59,9 @@ public class Game1 : Game
 
 
         player.Update();
-        boss.Update();
+        if(point>100){
+            boss.Update();
+        }
         foreach(Enemy enemy in enemies){
             enemy.Update();
         }
@@ -70,6 +72,8 @@ public class Game1 : Game
         EnemyPlayerCollision();
         EnemyEnemyCollison();
         SpawnEnemy();
+        BossCollision();
+        PlayerBulletCollision();
         base.Update(gameTime);
     }               
 
@@ -86,8 +90,13 @@ public class Game1 : Game
         foreach(Enemy2 enemy2 in enemies2){
             enemy2.Draw(_spriteBatch);
         } 
-        if(point>100){
+        if(point>100 && bossHP>0){
             boss.Draw(_spriteBatch);
+            _spriteBatch.DrawString(fontScore, "Boss HP: " + Convert.ToString(bossHP), new Vector2(50, 150), Color.DarkBlue);
+        }
+        if(bossHP<=0){
+            _spriteBatch.DrawString(fontScore, "Hurra Du Vann!!", new Vector2(900, 500), Color.Gold);
+            
         }
         _spriteBatch.DrawString(fontScore, Convert.ToString(point), new Vector2(50, 50), Color.Black);
         _spriteBatch.DrawString(fontScore, "HP: " + Convert.ToString(hp), new Vector2(1760, 50), Color.Red);
@@ -158,6 +167,14 @@ public class Game1 : Game
                 Exit();
             }
         }
+        if(hp>0){
+            if(boss.Hitbox.Intersects(player.Hitbox)){
+            hp--;
+            }
+        }
+        else{
+            Exit();
+        }
     }
 
     private void EnemyEnemyCollison(){
@@ -177,12 +194,30 @@ public class Game1 : Game
             for (int i = 0; i < player.Bullets.Count; i++)
             {
                 if(player.Bullets[i].Hitbox.Intersects(boss.Hitbox)){
+                    player.Bullets.RemoveAt(i);
                     bossHP--;
+                    
                 }
             }
         }
-        else{
-            
+    }
+    private void PlayerBulletCollision(){
+        for (int i = 0; i < boss.Bullets.Count; i++)
+        {
+            if(boss.Bullets[i].Hitbox.Intersects(player.Hitbox)){
+                hp--;
+                boss.Bullets.RemoveAt(i);
+            }
+        }
+        for (int i = 0; i < player.Bullets.Count; i++)
+        {
+            for (int j = 0; j < boss.Bullets.Count; j++)
+            {
+                if(boss.Bullets[j].Hitbox.Intersects(player.Bullets[i].Hitbox)){
+                    boss.Bullets.RemoveAt(j);
+                    player.Bullets.RemoveAt(i);
+                }
+            }
         }
     }
 }

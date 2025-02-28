@@ -12,8 +12,10 @@ public class Game1 : Game
     private SpriteBatch _spriteBatch;
     private Player player;
     private Texture2D spaceShip;
+    private Texture2D hjärta;
     private List<Enemy> enemies = new List<Enemy>();
     private List<Enemy2> enemies2 = new List<Enemy2>();
+    private List<Heal> heals = new List<Heal>();
     private Boss boss;
     private int bossHP = 10;
     private int point = 0;
@@ -42,6 +44,7 @@ public class Game1 : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         spaceShip = Content.Load<Texture2D>("spaceship");
         fontScore = Content.Load<SpriteFont>("fontScore");
+        hjärta = Content.Load<Texture2D>("hjärta");
 
         player = new Player(spaceShip, new Vector2(540, 1000), 50);
         boss = new Boss(spaceShip, new Vector2(900, -100));
@@ -72,6 +75,8 @@ public class Game1 : Game
         EnemyPlayerCollision();
         EnemyEnemyCollison();
         SpawnEnemy();
+        SpawnHP();
+        Heal();
         BossCollision();
         PlayerBulletCollision();
         base.Update(gameTime);
@@ -90,6 +95,9 @@ public class Game1 : Game
         foreach(Enemy2 enemy2 in enemies2){
             enemy2.Draw(_spriteBatch);
         } 
+        foreach(Heal heal in heals){
+            heal.Draw(_spriteBatch);
+        }
         if(point>100 && bossHP>0){
             boss.Draw(_spriteBatch);
             _spriteBatch.DrawString(fontScore, "Boss HP: " + Convert.ToString(bossHP), new Vector2(50, 150), Color.DarkBlue);
@@ -217,6 +225,28 @@ public class Game1 : Game
                     boss.Bullets.RemoveAt(j);
                     player.Bullets.RemoveAt(i);
                 }
+            }
+        }
+    }
+
+    private void SpawnHP(){
+        Random rng = new Random();
+        int chance = rng.Next(0, 100);
+        if(chance<=1){
+            if(heals.Count<1){
+                if(hp<3){
+                    heals.Add(new Heal(hjärta));
+                }
+            }
+        }
+    }
+
+    private void Heal(){
+        for (int i = 0; i < heals.Count; i++)
+        {
+            if(heals[i].Hitbox.Intersects(player.Hitbox)){
+                hp++;
+                heals.RemoveAt(i);
             }
         }
     }

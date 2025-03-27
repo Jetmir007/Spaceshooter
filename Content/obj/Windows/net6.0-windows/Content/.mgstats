@@ -1,4 +1,1 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Github/Spaceshooter/Content/fontScore.spritefont","C:/Github/Spaceshooter/Content/bin/Windows/Content/fontScore.xnb","FontDescriptionProcessor","SpriteFontContent",2068,70687,0,2828326
-"C:/Github/Spaceshooter/Content/hjärta.png","C:/Github/Spaceshooter/Content/bin/Windows/Content/hjärta.xnb","TextureProcessor","Texture2DContent",1004,202585,0,0515582
-"C:/Github/Spaceshooter/Content/spaceship.png","C:/Github/Spaceshooter/Content/bin/Windows/Content/spaceship.xnb","TextureProcessor","Texture2DContent",2719,202585,0,024969

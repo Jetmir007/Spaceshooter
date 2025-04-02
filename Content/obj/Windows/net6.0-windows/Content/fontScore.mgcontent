@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/Admin/Documents/GitHub/Monogame.-2/Content/fontScore.spritefont</SourceFile>
-  <SourceTime>2025-02-12T09:54:51.7966444+01:00</SourceTime>
-  <DestFile>C:/Users/Admin/Documents/GitHub/Monogame.-2/Content/bin/Windows/Content/fontScore.xnb</DestFile>
-  <DestTime>2025-02-12T09:54:57.9055179+01:00</DestTime>
+  <SourceFile>C:/Github/Spaceshooter/Content/fontScore.spritefont</SourceFile>
+  <SourceTime>2025-02-12T13:00:42.2549478+01:00</SourceTime>
+  <DestFile>C:/Github/Spaceshooter/Content/bin/Windows/Content/fontScore.xnb</DestFile>
+  <DestTime>2025-03-27T12:45:40.4097997+01:00</DestTime>
   <Importer>FontDescriptionImporter</Importer>
   <ImporterTime>2022-07-26T13:44:56+02:00</ImporterTime>
   <Processor>FontDescriptionProcessor</Processor>

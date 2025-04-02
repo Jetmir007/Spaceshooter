@@ -17,7 +17,7 @@ public class Game1 : Game
     private List<Enemy2> enemies2 = new List<Enemy2>();
     private List<Heal> heals = new List<Heal>();
     private Boss boss;
-    private int bossHP = 10;
+    private int bossHP = 57;
     private int point = 0;
     private int hp = 3;
     SpriteFont fontScore;

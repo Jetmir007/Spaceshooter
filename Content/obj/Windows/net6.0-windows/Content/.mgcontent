@@ -4,9 +4,9 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Github/Spaceshooter/Content/fontScore.spritefont</File>
-    <File>C:/Github/Spaceshooter/Content/hjärta.png</File>
-    <File>C:/Github/Spaceshooter/Content/spaceship.png</File>
+    <File>c:/Github/Spaceshooter/Content/fontScore.spritefont</File>
+    <File>c:/Github/Spaceshooter/Content/hjärta.png</File>
+    <File>c:/Github/Spaceshooter/Content/spaceship.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />

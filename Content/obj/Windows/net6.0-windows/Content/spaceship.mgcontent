@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Github/Spaceshooter/Content/spaceship.png</SourceFile>
+  <SourceFile>c:/Github/Spaceshooter/Content/spaceship.png</SourceFile>
   <SourceTime>2025-02-05T13:14:01.8422333+01:00</SourceTime>
-  <DestFile>C:/Github/Spaceshooter/Content/bin/Windows/Content/spaceship.xnb</DestFile>
-  <DestTime>2025-04-01T14:06:59.731434+02:00</DestTime>
+  <DestFile>c:/Github/Spaceshooter/Content/bin/Windows/Content/spaceship.xnb</DestFile>
+  <DestTime>2025-09-16T15:01:27.2574988+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T13:44:56+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
